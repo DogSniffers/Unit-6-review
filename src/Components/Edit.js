@@ -5,16 +5,18 @@ class Edit extends React.Component {
     super(props);
 
     this.state = {
-      //something goes here
+      postInput:props.text
+      // edit needs state because we need a text field
     };
   }
 
   handleCancel = () => {
- 
+    this.setState({ postInput:this.props.text})
+    this.props.toggleEdit();
   };
 
-  handleChange = () => {
-    
+  handleChange = e => {
+    this.setState({postInput: e.target.value})
   };
 
   render() {
@@ -23,19 +25,15 @@ class Edit extends React.Component {
         <div>
           <input
             className="post-text"
-            value={
-              //something goes here
-            }
-            onChange={
-              //something goes here
-            }
+            value={this.state.postInput}
+            onChange={this.handleChange}
           />
         </div>
         <div className="post-buttons">
             <button
               className="input-container-button-small"
-              onClick={() => {
-               //something goes here
+              onClick={() => { 
+                this.handleCancel()
               }}
             >
               Cancel
@@ -43,7 +41,9 @@ class Edit extends React.Component {
             <button
               className="input-container-button-small"
               onClick={() => {
-               //something goes here
+                this.props.handleEdit(this.props.id, this.state.postInput);
+                // If you ONLY use props in a function/setting a function it is probably easier to use the needed function somewhere else so that you do not need to pass down so many components through props. But in this example, we are also using state so this is OK
+                this.props.toggleEdit();
               }}
             >
               Save

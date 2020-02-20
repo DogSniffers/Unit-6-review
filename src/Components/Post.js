@@ -5,22 +5,24 @@ const Post = props => {
     <li className="post-container">
       <div>
         <p className="post-text">{
-        //something goes here
+        props.text
       }</p>
       </div>
       <div className="post-buttons">
         <button
           className="input-container-button-small"
-          onClick={
-           //something goes here
-          }
+          onClick={() =>{
+            props.toggleEdit()
+          }}
         >
           Edit
         </button>
         <button
           className="input-container-button-small"
-          onClick={
-            //something goes here
+          onClick={()=>{
+            props.handleDelete(props.id)
+            // Needed to do an arrow function here because we wanted to envoke handleDelete with something thats not element
+          }
           }
         >
           Delete

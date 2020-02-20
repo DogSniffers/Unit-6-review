@@ -1,8 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import Axios from 'axios';
+import {logout} from '../redux/reducer'
 
 const Profile = (props) => {
 
     const logout = () => {
+        Axios.post('/api/logout').then(res =>{
+            props.logout()
+            props.history.push('/')
+        })
     //something goes here
     }
 
