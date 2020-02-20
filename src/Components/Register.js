@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 class Register extends Component {
   constructor() {
@@ -11,10 +12,20 @@ class Register extends Component {
   }
 
   handleInput = event => {
-
+    this.setState({
+      [event.target.name]:event.target.value
+    })
   };
 
   handleRegister = () => {
+    const {email,password} = this.state
+    // You can do this to remove the need for this.state
+    axios.post('/api/register', {email,password})
+    // This is saying email: email and password: password
+    .then(res => {
+      // TODO Redux get user Data
+      this.props.history.push('/dash')
+    }).catch(err => console.log(err))
    
   };
 
@@ -28,24 +39,18 @@ class Register extends Component {
                 maxLength="100"
                 placeholder="Enter Email"
                 name="email"
-                onChange={
-                  //something goes here
-                }
+                onChange={this.handleInput}
               />
               <input
                 type="password"
                 maxLength="20"
                 placeholder="Enter Password"
                 name="password"
-                onChange={
-                  //something goes here
-                }
+                onChange={this.handleInput}
               />
             </div>
             <button
-              onClick={
-                //something goes here
-              }
+              onClick={this.handleRegister}
               className="input-container-button"
             >
               Register

@@ -14,5 +14,14 @@ const Profile = (props) => {
         </div>
     )
 }
+const mapStateToProps = reduxState => {
+    const {user} = reduxState
+    // Make sure whatever is returned is an Object
+    return {
+        user
+    }
+    // return reduxState could also work, just because it is still returning the reduxState object
+}
 
-export default Profile;
+export default connect(mapStateToProps,{logout} )(Profile);
+// Without connect we would be unable to do the Redux stuff

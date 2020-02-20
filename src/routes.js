@@ -6,6 +6,12 @@ import Dashboard from './Components/Dashboard';
 import Profile from './Components/Profile';
 
 export default (
+    // Setup Routes before Components
     <Switch>
+        {/* Route components carry stuff on their props */}
+        <Route exact path='/' component={Landing}/>
+        <Route path='/register' component={Register}/>
+        <Route path='/dash' component={Dashboard}/>
+        <Route path='/profile' component={Profile}/>
     </Switch>
 )

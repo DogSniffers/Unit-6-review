@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { getUser } from '../redux/reducer';
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 class Landing extends Component {
   constructor() {
@@ -11,10 +14,20 @@ class Landing extends Component {
     //this.handleLogin = this.handleLogin.bind(this)
   }
 
-  handleInput = () => {
+  handleInput = event => {
+    this.setState({
+      [event.target.name]:event.target.value
+    })
   };
 
   handleLogin = () => {
+    axios.post('/api/login',
+      {email:this.state.email,
+        password:this.state.password
+      }).then(res => {
+        this.props.getUser(res.data)
+        this.props.history.push('/dash')
+    }).catch(error => console.log(error))
    
   };
 
@@ -28,24 +41,19 @@ class Landing extends Component {
                 maxLength="100"
                 placeholder="Enter Email"
                 name="email"
-                onChange={
-                  //something goes here
-                }
+                onChange={this.handleInput}
+                // OR LIKE onChange={(e)=>{this.handleinput(e)}}
               />
               <input
                 type="password"
                 maxLength="20"
                 placeholder="Enter Password"
                 name="password"
-                onChange={
-                  //something goes here
-                }
+                onChange={(e)=>{this.handleInput(e)}}
               />
             </div>
             <button
-              onClick={
-            //something goes here
-          }
+              onClick={this.handleLogin}
               className="input-container-button"
             >
               Log in
@@ -62,5 +70,7 @@ class Landing extends Component {
     );
   }
 }
+// Connect, invoke it once then invoke it with what you want to pass into it
+// First parameter = reduxState,second are redux actions/functions
+export default connect(null,{getUser})(Landing);
 
-export default Landing;
