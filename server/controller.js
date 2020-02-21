@@ -22,7 +22,7 @@ module.exports = {
     const {id} = req.params
     const {post} = req.params
     const db = req.app.get('ab')
-    db.addPost([id,post,new Date()]).then(() =>{
+    db.add_post([id,post,new Date()]).then(() =>{
       // new is a keyword for Constructors, and setting class
       res.sendStatus(201)
     }).catch(() =>{
